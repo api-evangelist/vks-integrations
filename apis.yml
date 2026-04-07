@@ -8,8 +8,7 @@ type: Index
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-tags:
-  - API
+tags: []
 created: '2025-03-01'
 modified: '2026-03-16'
 url: >-
@@ -23,8 +22,7 @@ apis:
       Connect VKS to your ERP, BI software, and any other business platform to expand
       the capabilities of your workers, equipment, and systems.
     humanURL: ' https://vksapp.com/integrations'
-    tags:
-      - API
+    tags: []
     properties:
       - type: Documentation
         url: ' https://vksapp.com/integrations'
