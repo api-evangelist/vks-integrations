@@ -1,0 +1,37 @@
+{
+  "title": "Create Work Order",
+  "description": "Push a new manufacturing work order from ERP into VKS, linked to a guidebook.",
+  "operation": "createWorkOrder",
+  "request": {
+    "method": "POST",
+    "url": "https://api.vksapp.com/api/workorders",
+    "headers": {
+      "Authorization": "Bearer your-vks-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "work_order_number": "WO-2026-001234",
+      "guidebook_id": "gb_widget_assembly_v3",
+      "part_number": "PN-12345-A",
+      "expected_quantity": 50
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "wo_abc123",
+      "work_order_number": "WO-2026-001234",
+      "guidebook_id": "gb_widget_assembly_v3",
+      "guidebook_name": "Assembly Line A - Widget Assembly v3",
+      "status": "planned",
+      "part_number": "PN-12345-A",
+      "expected_quantity": 50,
+      "actual_quantity": 0,
+      "assigned_worker": null,
+      "started_at": null,
+      "completed_at": null,
+      "created_at": "2026-05-03T08:00:00Z",
+      "updated_at": "2026-05-03T08:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/vks-integrations/refs/heads/main/json-schema/vks-work-order-schema.json",
+  "title": "VKS Work Order",
+  "description": "A VKS manufacturing work order representing a task assigned to a specific work instruction guidebook.",
+  "type": "object",
+  "required": ["id", "work_order_number", "guidebook_id", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique work order identifier."
+    },
+    "work_order_number": {
+      "type": "string",
+      "description": "Human-readable work order number, typically sourced from ERP.",
+      "example": "WO-2026-001234"
+    },
+    "guidebook_id": {
+      "type": "string",
+      "description": "ID of the VKS guidebook containing work instructions for this order."
+    },
+    "guidebook_name": {
+      "type": "string",
+      "description": "Name of the associated guidebook."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current work order status.",
+      "enum": ["planned", "in_progress", "completed", "on_hold"]
+    },
+    "part_number": {
+      "type": "string",
+      "description": "Part or assembly number being manufactured.",
+      "example": "PN-12345-A"
+    },
+    "expected_quantity": {
+      "type": "integer",
+      "description": "Expected number of units to produce.",
+      "minimum": 1
+    },
+    "actual_quantity": {
+      "type": "integer",
+      "description": "Actual units produced.",
+      "minimum": 0
+    },
+    "assigned_worker": {
+      "type": "string",
+      "description": "Worker ID or name assigned to the work order."
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when work began."
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when work was completed."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

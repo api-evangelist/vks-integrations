@@ -1,0 +1,579 @@
+openapi: 3.1.0
+info:
+  title: VKS API
+  description: >-
+    The VKS (Visual Knowledge Share) JSON REST API provides programmatic
+    access to pull guidebook and production information out of VKS and
+    manage Work Orders and operations. It supports bi-directional integration
+    with ERP, MES, QMS, and LMS systems for manufacturing environments.
+    Supports up to 50 requests per minute for SaaS deployments.
+  version: 1.23.0
+  contact:
+    name: VKS Support
+    url: https://help.vksapp.com/
+  license:
+    name: Proprietary
+    url: https://vksapp.com/
+externalDocs:
+  description: VKS API Documentation
+  url: https://help.vksapp.com/Content/VKS_Features/API/APIInfo.htm
+servers:
+  - url: https://api.vksapp.com
+    description: VKS SaaS API
+  - url: https://{your-vks-instance}
+    description: VKS On-Premises API
+    variables:
+      your-vks-instance:
+        default: vks.example.com
+        description: Your VKS on-premises hostname
+tags:
+  - name: Work Orders
+    description: Create, retrieve, and manage work orders on the manufacturing floor
+  - name: Guidebooks
+    description: Access work instruction guidebooks and step-level content
+  - name: Operations
+    description: Manage and track operational steps and production data
+  - name: Production Data
+    description: Retrieve production metrics, quality data, and traceability records
+paths:
+  /api/workorders:
+    get:
+      operationId: listWorkOrders
+      summary: List Work Orders
+      description: >-
+        Retrieve a list of work orders in VKS. Supports filtering by status,
+        date range, and assignment. Returns planned, in-progress, and
+        completed work orders.
+      tags:
+        - Work Orders
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - planned
+              - in_progress
+              - completed
+              - on_hold
+          description: Filter by work order status
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: from_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Filter work orders created on or after this date (ISO 8601)
+        - name: to_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Filter work orders created on or before this date (ISO 8601)
+      responses:
+        '200':
+          description: List of work orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkOrder'
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWorkOrder
+      summary: Create Work Order
+      description: >-
+        Create a new work order in VKS. Typically called by an ERP or MES
+        system to push manufacturing orders into VKS for floor execution.
+        The work order references a guidebook and may include bill of
+        materials, part numbers, and expected quantities.
+      tags:
+        - Work Orders
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkOrderRequest'
+      responses:
+        '201':
+          description: Work order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/workorders/{work_order_id}:
+    get:
+      operationId: getWorkOrder
+      summary: Get Work Order
+      description: Retrieve full details for a specific work order including status, operations, and production data.
+      tags:
+        - Work Orders
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: work_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique work order identifier
+      responses:
+        '200':
+          description: Work order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateWorkOrder
+      summary: Update Work Order
+      description: Update a work order's status, assignment, or metadata.
+      tags:
+        - Work Orders
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: work_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique work order identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkOrderRequest'
+      responses:
+        '200':
+          description: Work order updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/guidebooks:
+    get:
+      operationId: listGuidebooks
+      summary: List Guidebooks
+      description: Retrieve all published work instruction guidebooks available in VKS.
+      tags:
+        - Guidebooks
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search guidebooks by name or description
+      responses:
+        '200':
+          description: List of guidebooks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Guidebook'
+                  total:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/guidebooks/{guidebook_id}:
+    get:
+      operationId: getGuidebook
+      summary: Get Guidebook
+      description: Retrieve a specific guidebook including its steps, smart forms, and media content.
+      tags:
+        - Guidebooks
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: guidebook_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique guidebook identifier
+      responses:
+        '200':
+          description: Guidebook details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guidebook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/workorders/{work_order_id}/operations:
+    get:
+      operationId: listWorkOrderOperations
+      summary: List Work Order Operations
+      description: Retrieve all operation steps for a work order, including their status and production data.
+      tags:
+        - Operations
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: work_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique work order identifier
+      responses:
+        '200':
+          description: List of operations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Operation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/production-data:
+    get:
+      operationId: listProductionData
+      summary: List Production Data
+      description: >-
+        Retrieve production data records including smart form responses,
+        quality metrics, completion times, worker IDs, and part/assembly
+        traceability information.
+      tags:
+        - Production Data
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: work_order_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by work order ID
+        - name: guidebook_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by guidebook ID
+        - name: from_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: Filter records from this date/time
+        - name: to_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: Filter records to this date/time
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Production data records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductionRecord'
+                  total:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: VKS API key. Include as 'Authorization: Bearer {api_key}' or as configured in your VKS instance.
+  schemas:
+    WorkOrder:
+      type: object
+      description: A VKS work order representing a manufacturing task assigned to a guidebook.
+      properties:
+        id:
+          type: string
+          description: Unique work order identifier.
+        work_order_number:
+          type: string
+          description: Human-readable work order number (e.g. from ERP).
+          example: "WO-2026-001234"
+        guidebook_id:
+          type: string
+          description: ID of the associated VKS guidebook (work instructions).
+        guidebook_name:
+          type: string
+          description: Name of the associated guidebook.
+        status:
+          type: string
+          enum:
+            - planned
+            - in_progress
+            - completed
+            - on_hold
+          description: Current work order status.
+        part_number:
+          type: string
+          description: Part number being manufactured.
+          example: "PN-12345"
+        expected_quantity:
+          type: integer
+          description: Expected number of units to produce.
+        actual_quantity:
+          type: integer
+          description: Actual units produced.
+        assigned_worker:
+          type: string
+          description: Worker ID or name assigned to the work order.
+        started_at:
+          type: string
+          format: date-time
+          description: When work on the order began.
+        completed_at:
+          type: string
+          format: date-time
+          description: When the work order was completed.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    CreateWorkOrderRequest:
+      type: object
+      required:
+        - work_order_number
+        - guidebook_id
+      description: Request body to create a new work order.
+      properties:
+        work_order_number:
+          type: string
+          description: External work order number from ERP or MES.
+        guidebook_id:
+          type: string
+          description: VKS guidebook ID containing the work instructions.
+        part_number:
+          type: string
+          description: Part number to be manufactured.
+        expected_quantity:
+          type: integer
+          description: Expected production quantity.
+        assigned_worker:
+          type: string
+          description: Worker assignment.
+        metadata:
+          type: object
+          description: Additional ERP/MES metadata fields.
+          additionalProperties: true
+    UpdateWorkOrderRequest:
+      type: object
+      description: Request body to update a work order.
+      properties:
+        status:
+          type: string
+          enum:
+            - planned
+            - in_progress
+            - completed
+            - on_hold
+        assigned_worker:
+          type: string
+        expected_quantity:
+          type: integer
+    Guidebook:
+      type: object
+      description: A VKS guidebook containing step-by-step work instructions.
+      properties:
+        id:
+          type: string
+          description: Unique guidebook identifier.
+        name:
+          type: string
+          description: Guidebook name.
+          example: "Assembly Line A - Widget Assembly v3"
+        description:
+          type: string
+          description: Guidebook description.
+        version:
+          type: string
+          description: Guidebook version number.
+        step_count:
+          type: integer
+          description: Number of steps in the guidebook.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Operation:
+      type: object
+      description: An operational step within a work order.
+      properties:
+        id:
+          type: string
+        step_number:
+          type: integer
+          description: Step sequence number.
+        name:
+          type: string
+          description: Operation/step name.
+        status:
+          type: string
+          enum:
+            - pending
+            - in_progress
+            - completed
+            - skipped
+        worker_id:
+          type: string
+          description: Worker who performed this operation.
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+    ProductionRecord:
+      type: object
+      description: A production data record capturing operational metrics and quality data.
+      properties:
+        id:
+          type: string
+        work_order_id:
+          type: string
+        guidebook_id:
+          type: string
+        step_number:
+          type: integer
+        worker_id:
+          type: string
+          description: Worker credentials/ID.
+        part_number:
+          type: string
+        actual_quantity:
+          type: integer
+        smart_form_data:
+          type: object
+          description: Data captured via VKS Smart Forms (quality checks, measurements, etc.).
+          additionalProperties: true
+        completion_time_seconds:
+          type: integer
+          description: Time taken to complete the operation in seconds.
+        recorded_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+  responses:
+    Unauthorized:
+      description: Unauthorized — invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

@@ -1,0 +1,253 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "VKS Manufacturing Operations Workflow"
+  description: >-
+    Workflow capability for manufacturing operations teams using VKS work
+    instruction software. Combines work order management, guidebook access,
+    operations tracking, and production data collection into a unified
+    interface for ERP/MES integration, quality management, and floor
+    traceability.
+  tags:
+    - VKS
+    - ERP Integration
+    - Manufacturing
+    - MES
+    - Operations Management
+    - Production Data
+    - Quality Management
+    - Work Instructions
+    - Work Orders
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      VKS_API_KEY: VKS_API_KEY
+
+capability:
+  consumes:
+    - import: vks
+      location: ./shared/vks-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: vks-manufacturing-api
+      description: "Unified REST API for VKS manufacturing operations and ERP/MES integration."
+      resources:
+        - path: /v1/work-orders
+          name: work-orders
+          description: "Manufacturing work order management."
+          operations:
+            - method: GET
+              name: list-work-orders
+              description: "List all work orders, optionally filtered by status."
+              call: "vks.list-work-orders"
+              with:
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-work-order
+              description: "Create a new work order from an ERP or MES system."
+              call: "vks.create-work-order"
+              with:
+                work_order_number: "rest.work_order_number"
+                guidebook_id: "rest.guidebook_id"
+                part_number: "rest.part_number"
+                expected_quantity: "rest.expected_quantity"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/work-orders/{work_order_id}
+          name: work-order-detail
+          description: "Individual work order."
+          operations:
+            - method: GET
+              name: get-work-order
+              description: "Get work order details."
+              call: "vks.get-work-order"
+              with:
+                work_order_id: "rest.work_order_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-work-order
+              description: "Update work order status or assignment."
+              call: "vks.update-work-order"
+              with:
+                work_order_id: "rest.work_order_id"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/work-orders/{work_order_id}/operations
+          name: operations
+          description: "Work order operational steps."
+          operations:
+            - method: GET
+              name: list-operations
+              description: "List operational steps for a work order."
+              call: "vks.list-work-order-operations"
+              with:
+                work_order_id: "rest.work_order_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/guidebooks
+          name: guidebooks
+          description: "Work instruction guidebooks."
+          operations:
+            - method: GET
+              name: list-guidebooks
+              description: "List all published guidebooks."
+              call: "vks.list-guidebooks"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/guidebooks/{guidebook_id}
+          name: guidebook-detail
+          description: "Individual guidebook."
+          operations:
+            - method: GET
+              name: get-guidebook
+              description: "Get guidebook with step-by-step instructions."
+              call: "vks.get-guidebook"
+              with:
+                guidebook_id: "rest.guidebook_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/production-data
+          name: production-data
+          description: "Production data and quality records."
+          operations:
+            - method: GET
+              name: list-production-data
+              description: "Retrieve production data, smart form responses, and traceability records."
+              call: "vks.list-production-data"
+              with:
+                work_order_id: "rest.work_order_id"
+                from_date: "rest.from_date"
+                to_date: "rest.to_date"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: vks-manufacturing-mcp
+      transport: http
+      description: "MCP server for AI-assisted manufacturing operations, ERP integration, and quality traceability."
+      tools:
+        - name: list-work-orders
+          description: "List manufacturing work orders. Filter by status (planned, in_progress, completed, on_hold) to find active or completed orders."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "vks.list-work-orders"
+          with:
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-work-order
+          description: "Push a new work order from ERP or MES into VKS. Link it to a guidebook by ID, and include part number and expected production quantity."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "vks.create-work-order"
+          with:
+            work_order_number: "tools.work_order_number"
+            guidebook_id: "tools.guidebook_id"
+            part_number: "tools.part_number"
+            expected_quantity: "tools.expected_quantity"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-work-order
+          description: "Get full details for a manufacturing work order including status, assigned worker, quantities, and timestamps."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "vks.get-work-order"
+          with:
+            work_order_id: "tools.work_order_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-work-order-status
+          description: "Update the status of a work order (planned → in_progress → completed) or reassign it to a different worker."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "vks.update-work-order"
+          with:
+            work_order_id: "tools.work_order_id"
+            status: "tools.status"
+            assigned_worker: "tools.assigned_worker"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-work-instructions
+          description: "List all published VKS guidebooks (work instruction manuals). Search by name to find instructions for a specific assembly or process."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "vks.list-guidebooks"
+          with:
+            search: "tools.search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-work-instructions
+          description: "Get a VKS guidebook with its complete step-by-step work instructions, smart forms, and media attachments."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "vks.get-guidebook"
+          with:
+            guidebook_id: "tools.guidebook_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-operation-steps
+          description: "List the operational steps for a work order and their completion status."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "vks.list-work-order-operations"
+          with:
+            work_order_id: "tools.work_order_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-production-data
+          description: "Retrieve production data records for quality management and traceability. Includes smart form responses, actual quantities, worker IDs, and completion times."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "vks.list-production-data"
+          with:
+            work_order_id: "tools.work_order_id"
+            from_date: "tools.from_date"
+            to_date: "tools.to_date"
+          outputParameters:
+            - type: object
+              mapping: "$."

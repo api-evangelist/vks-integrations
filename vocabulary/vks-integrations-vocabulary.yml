@@ -1,0 +1,117 @@
+vocabulary:
+  name: VKS Integrations Vocabulary
+  description: >-
+    Canonical terms and concepts used in VKS (Visual Knowledge Share) work
+    instruction software and its REST API, covering manufacturing operations,
+    work orders, guidebooks, smart forms, and ERP/MES integration.
+  version: 1.0.0
+  created: '2026-05-03'
+  modified: '2026-05-03'
+  tags:
+    - Manufacturing
+    - Work Instructions
+    - Work Orders
+
+terms:
+  - term: Guidebook
+    definition: >-
+      A VKS work instruction document containing step-by-step instructions
+      for a manufacturing process or assembly. May include images, videos,
+      smart forms, tool lists, and safety information.
+    tags:
+      - Core
+
+  - term: Work Order
+    definition: >-
+      A manufacturing task in VKS linked to a specific guidebook. Work orders
+      are typically pushed from an ERP system and represent a batch of units
+      to produce. Status progresses from planned → in_progress → completed.
+    tags:
+      - Core
+
+  - term: Smart Form
+    definition: >-
+      A data capture form embedded within a VKS guidebook step. Used to record
+      quality measurements, inspection results, serial numbers, and other
+      structured data at the point of production.
+    tags:
+      - Quality
+
+  - term: Operation
+    definition: >-
+      An individual step within a work order execution. Each operation
+      corresponds to a guidebook step and tracks start time, completion time,
+      and the worker who performed it.
+    tags:
+      - Process
+
+  - term: Production Record
+    definition: >-
+      A traceability record generated when a work order step is completed.
+      Contains the worker ID, smart form data, actual quantities, completion
+      time, and part/assembly identifiers.
+    tags:
+      - Quality
+
+  - term: ERP
+    altTerms:
+      - Enterprise Resource Planning
+    definition: >-
+      An enterprise system (such as SAP, Oracle, or Microsoft Dynamics) that
+      VKS integrates with to receive work orders, part numbers, bills of
+      materials, and to send back production data.
+    tags:
+      - Integration
+
+  - term: MES
+    altTerms:
+      - Manufacturing Execution System
+    definition: >-
+      A system that manages and monitors manufacturing operations on the
+      factory floor. VKS can receive work orders from MES and send production
+      data back for real-time visibility.
+    tags:
+      - Integration
+
+  - term: SCAC Code
+    definition: >-
+      Not used in VKS. (This term is specific to logistics; included here as
+      a negative example to avoid confusion with shipping integrations.)
+    tags:
+      - Out of Scope
+
+  - term: Part Number
+    altTerms:
+      - part_number
+    definition: >-
+      The identifier for a component or assembly being manufactured. Sourced
+      from ERP and stored in VKS work orders for traceability.
+    tags:
+      - Manufacturing
+
+  - term: Bill of Materials
+    altTerms:
+      - BOM
+    definition: >-
+      A structured list of materials, components, and assemblies required to
+      build a product. VKS can pull BOM data from ERP to display in guidebook
+      steps.
+    tags:
+      - Manufacturing
+
+  - term: VKS Digital Ecosystem
+    definition: >-
+      A VKS add-on product that extends the standard API with supply chain
+      integration capabilities, enabling bi-directional data sharing with
+      suppliers and partners.
+    tags:
+      - Product
+
+  - term: KPI
+    altTerms:
+      - Key Performance Indicator
+    definition: >-
+      Automated performance metrics generated from VKS production data,
+      including cycle times, quality pass rates, and operator efficiency.
+    tags:
+      - Analytics

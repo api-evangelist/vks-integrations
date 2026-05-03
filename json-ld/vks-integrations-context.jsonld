@@ -1,0 +1,44 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "vks": "https://vksapp.com/vocabulary#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "WorkOrder": "vks:WorkOrder",
+    "Guidebook": "vks:Guidebook",
+    "Operation": "vks:Operation",
+    "ProductionRecord": "vks:ProductionRecord",
+    "SmartForm": "vks:SmartForm",
+
+    "id": {"@id": "@id"},
+    "work_order_number": {"@id": "vks:workOrderNumber", "@type": "xsd:string"},
+    "guidebook_id": {"@id": "vks:guidebookId", "@type": "xsd:string"},
+    "guidebook_name": {"@id": "vks:guidebookName", "@type": "xsd:string"},
+    "status": {"@id": "vks:status", "@type": "xsd:string"},
+    "part_number": {"@id": "vks:partNumber", "@type": "xsd:string"},
+    "expected_quantity": {"@id": "vks:expectedQuantity", "@type": "xsd:integer"},
+    "actual_quantity": {"@id": "vks:actualQuantity", "@type": "xsd:integer"},
+    "assigned_worker": {"@id": "vks:assignedWorker", "@type": "xsd:string"},
+
+    "step_number": {"@id": "vks:stepNumber", "@type": "xsd:integer"},
+    "worker_id": {"@id": "vks:workerId", "@type": "xsd:string"},
+    "smart_form_data": {"@id": "vks:smartFormData"},
+    "completion_time_seconds": {"@id": "vks:completionTimeSeconds", "@type": "xsd:integer"},
+
+    "name": {"@id": "schema:name"},
+    "description": {"@id": "schema:description"},
+    "version": {"@id": "schema:version"},
+    "step_count": {"@id": "vks:stepCount", "@type": "xsd:integer"},
+
+    "started_at": {"@id": "vks:startedAt", "@type": "xsd:dateTime"},
+    "completed_at": {"@id": "vks:completedAt", "@type": "xsd:dateTime"},
+    "recorded_at": {"@id": "vks:recordedAt", "@type": "xsd:dateTime"},
+    "created_at": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+    "updated_at": {"@id": "schema:dateModified", "@type": "xsd:dateTime"},
+
+    "Organization": "schema:Organization",
+    "HowTo": "schema:HowTo",
+    "HowToStep": "schema:HowToStep"
+  }
+}

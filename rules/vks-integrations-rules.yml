@@ -1,0 +1,86 @@
+extends:
+  - spectral:oas
+
+rules:
+  vks-operation-ids-camel-case:
+    description: Operation IDs must use camelCase to match VKS API conventions.
+    message: "{{property}} must be camelCase"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  vks-require-api-key-security:
+    description: All VKS API operations require API key authentication.
+    message: "Operation {{path}} must define security"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: security
+      function: truthy
+
+  vks-require-summaries:
+    description: All operations must have a summary.
+    message: "Operation {{path}} must have a summary"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: summary
+      function: truthy
+
+  vks-require-descriptions:
+    description: All operations and schemas must have descriptions.
+    message: "{{path}} must have a description"
+    severity: warn
+    given:
+      - "$.paths[*][*]"
+      - "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  vks-path-params-documented:
+    description: All path parameters must have descriptions.
+    message: "Path parameter {{path}} must have a description"
+    severity: warn
+    given: "$.paths[*][*].parameters[?(@.in == 'path')]"
+    then:
+      field: description
+      function: truthy
+
+  vks-require-401-response:
+    description: All authenticated operations must define a 401 Unauthorized response.
+    message: "Authenticated operation {{path}} must define a 401 response"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses.401
+      function: truthy
+
+  vks-use-iso8601-dates:
+    description: All date/time fields must use format date-time.
+    message: "Date field {{path}} must use format: date-time"
+    severity: warn
+    given: "$.components.schemas[*].properties[*][?(@.type == 'string' && @.description)]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          if:
+            properties:
+              description:
+                pattern: "(created|updated|started|completed|recorded)"
+          then:
+            required: ["format"]
+
+  vks-work-order-paths-plural:
+    description: Collection endpoints must use plural noun paths.
+    message: "Collection paths must use plural nouns"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/api/"
