@@ -62,6 +62,38 @@ common:
     type: Blog Post
   - url: https://vksapp.com/products/enterprise
     type: Pricing
+integrations:
+  - name: VKS company
+  - name: header paths image
+  - name: CMMS-node
+  - name: LMS-node
+  - name: QMS-node
+  - name: ERP-node
+  - name: BI-node
+  - name: VKS-node
+  - name: header image
+  - name: integrations-img-0
+  - name: integrations-img-1
+  - name: integrations-img-2
+  - name: logo-0
+  - name: logo-1
+  - name: logo-2
+  - name: logo-3
+  - name: logo-4
+  - name: logo-5
+  - name: logo-6
+  - name: logo-7
+  - name: logo-8
+  - name: logo-9
+  - name: logo-10
+  - name: logo-11
+  - name: logo-12
+  - name: logo-13
+  - name: logo-14
+  - name: logo-15
+  - name: Demo Image
+  - name: Facebook
+  - name: YouTube
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
