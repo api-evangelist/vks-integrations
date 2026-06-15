@@ -1,10 +1,8 @@
-# VKS Integrations
+# VKS Integrations (vks-integrations)
 
-VKS (Visual Knowledge Share) provides work instruction software for manufacturing with a JSON REST API for managing work orders, guidebooks, operations, and production data. Connect VKS to ERP, MES, QMS, and BI platforms for bi-directional data exchange and real-time floor traceability.
+VKS (Visual Knowledge Share) provides work instruction software for manufacturing with a JSON REST API for pulling guidebook and production information and managing work orders and operations. VKS integrates with ERP, MES, QMS, and LMS platforms to enable bi-directional data exchange, real-time quality tracking, and automated work order management across the manufacturing floor.
 
-**Human URL:** https://vksapp.com/integrations  
-**Documentation:** https://help.vksapp.com/Content/VKS_Features/API/APIInfo.htm  
-**APIs.json:** https://raw.githubusercontent.com/api-evangelist/vks-integrations/refs/heads/main/apis.yml
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/vks-integrations/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/vks-integrations/refs/heads/main/apis.yml)
 
 ## Scope
 
@@ -14,89 +12,53 @@ VKS (Visual Knowledge Share) provides work instruction software for manufacturin
 
 ## Tags
 
-ERP Integration, Manufacturing, MES, Operations Management, Quality Management, Work Instructions, Work Orders
+- ERP Integration
+- Manufacturing
+- MES
+- Operations Management
+- Quality Management
+- Work Instructions
+- Work Orders
+
+## Timestamps
+
+- **Created:** 2025-03-01
+- **Modified:** 2026-05-03
 
 ## APIs
 
 ### VKS API
 
-JSON REST API for pulling guidebook and production data from VKS and managing work orders and operations. Supports up to 50 requests per minute (SaaS).
+The VKS JSON REST API provides programmatic access to pull guidebook and production information out of VKS and manage Work Orders and operations. It supports integration with ERP, MES, and other manufacturing enterprise systems. The API supports up to 50 queries per minute for SaaS customers.
 
-**Human URL:** https://vksapp.com/integrations
+- **Human URL:** [https://vksapp.com/integrations](https://vksapp.com/integrations)
+
+#### Tags
+
+- ERP Integration
+- Guidebooks
+- Manufacturing
+- MES
+- Work Instructions
+- Work Orders
 
 #### Properties
 
 - [Documentation](https://help.vksapp.com/Content/VKS_Features/API/APIInfo.htm)
 - [Getting Started](https://vksapp.com/integrations)
-- [OpenAPI](openapi/vks-api-openapi.yml)
-
----
-
-## OpenAPI Specifications
-
-| File | Description |
-|---|---|
-| [vks-api-openapi.yml](openapi/vks-api-openapi.yml) | Work orders, guidebooks, operations, and production data endpoints |
-
-## Spectral Rules
-
-| File | Description |
-|---|---|
-| [vks-integrations-rules.yml](rules/vks-integrations-rules.yml) | Spectral ruleset for VKS API conventions |
-
-## Naftiko Capabilities
-
-### Shared Definitions
-
-| File | APIs |
-|---|---|
-| [shared/vks-api.yaml](capabilities/shared/vks-api.yaml) | VKS API — work orders, guidebooks, operations, production data |
-
-### Workflow Capabilities
-
-| File | Description |
-|---|---|
-| [manufacturing-operations.yaml](capabilities/manufacturing-operations.yaml) | Unified REST + MCP for ERP/MES integration and floor operations |
-
-## JSON Schema
-
-| File | Description |
-|---|---|
-| [vks-work-order-schema.json](json-schema/vks-work-order-schema.json) | Work order schema with status, part number, and quantity fields |
-
-## JSON Structure
-
-| File | Description |
-|---|---|
-| [vks-work-order-structure.json](json-structure/vks-work-order-structure.json) | Field-level structure for VKS Work Order |
-
-## JSON-LD Context
-
-| File | Description |
-|---|---|
-| [vks-integrations-context.jsonld](json-ld/vks-integrations-context.jsonld) | Linked data context aligned with schema.org/HowTo |
-
-## Examples
-
-| File | Description |
-|---|---|
-| [vks-api-create-work-order-example.json](examples/vks-api-create-work-order-example.json) | POST /api/workorders — create work order from ERP |
-
-## Vocabulary
-
-| File | Description |
-|---|---|
-| [vks-integrations-vocabulary.yml](vocabulary/vks-integrations-vocabulary.yml) | VKS terminology: Guidebook, Work Order, Smart Form, ERP, MES, BOM |
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/vks-integrations/refs/heads/main/openapi/vks-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
 
 ## Common Properties
 
+- [LinkedIn](https://www.linkedin.com/company/vks---visual-knowledge-share)
 - [Website](https://vksapp.com/)
 - [Documentation](https://help.vksapp.com/)
 - [Reference](https://help.vksapp.com/Content/VKS_Features/API/APIInfo.htm)
 - [Integrations](https://vksapp.com/integrations)
-- [Enterprise](https://vksapp.com/products/enterprise)
+- [Blog  Post](https://vksapp.com/blog/api-capabilities)
+- [Pricing](https://vksapp.com/products/enterprise)
 
 ## Maintainers
 
-**FN:** Kin Lane  
+**FN:** Kin Lane
 **Email:** kin@apievangelist.com
