@@ -2,19 +2,14 @@
   "repo": "vks-integrations",
   "feeds": [
     {
-      "source": "https://vksapp.com/blog",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
-    },
-    {
       "source": "https://vksapp.com/blog/api-capabilities",
-      "feed_url": "",
+      "feed_url": "https://vksapp.com/blog/api-capabilities",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
     }
   ],
   "post_count": 2,
-  "fetched": "2026-06-27T13:19:52Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "agent_pulled": "2026-06-27"
 }
