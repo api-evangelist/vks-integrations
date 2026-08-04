@@ -373,7 +373,7 @@ components:
       type: apiKey
       in: header
       name: Authorization
-      description: VKS API key. Include as 'Authorization: Bearer {api_key}' or as configured in your VKS instance.
+      description: "VKS API key. Include as 'Authorization: Bearer {api_key}' or as configured in your VKS instance."
   schemas:
     WorkOrder:
       type: object
