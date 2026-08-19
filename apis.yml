@@ -35,7 +35,7 @@ created: '2025-03-01'
 modified: '2026-05-03'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/vks-integrations/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: vks-integrations:vks-integrations-guidebooks-api
   name: VKS Integrations Guidebooks API
