@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VKS Guidebooks API",
+    "version": "1.23.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Guidebooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Guidebooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vksapp.com/api/guidebooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search guidebooks by name or description"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve all published work instruction guidebooks available in VKS."
+        },
+        {
+          "info": {
+            "name": "Get Guidebook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vksapp.com/api/guidebooks/:guidebook_id",
+            "params": [
+              {
+                "name": "guidebook_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique guidebook identifier"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific guidebook including its steps, smart forms, and media content."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

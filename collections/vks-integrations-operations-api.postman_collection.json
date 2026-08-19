@@ -1,0 +1,256 @@
+{
+  "item": [
+    {
+      "id": "ee24699f-ff1d-4243-bd3b-10bc3dafcbd8",
+      "name": "Operations",
+      "description": {
+        "content": "Manage and track operational steps and production data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a17cebfe-e8ce-4d25-9aa5-c974392de58c",
+          "name": "List Work Order Operations",
+          "request": {
+            "name": "List Work Order Operations",
+            "description": {
+              "content": "Retrieve all operation steps for a work order, including their status and production data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "workorders",
+                ":work_order_id",
+                "operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "work_order_id",
+                  "description": "(Required) Unique work order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a5b85c8a-55b2-4f42-a22c-8be6ca3aed6c",
+              "name": "List of operations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "workorders",
+                    ":work_order_id",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "work_order_id",
+                      "description": "(Required) Unique work order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"step_number\": 9893,\n      \"name\": \"string\",\n      \"status\": \"in_progress\",\n      \"worker_id\": \"string\",\n      \"started_at\": \"1949-10-01T18:11:32.262Z\",\n      \"completed_at\": \"1957-12-20T17:30:31.783Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"step_number\": 3020,\n      \"name\": \"string\",\n      \"status\": \"completed\",\n      \"worker_id\": \"string\",\n      \"started_at\": \"2023-10-18T04:31:46.798Z\",\n      \"completed_at\": \"1968-12-02T09:33:47.324Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79da72a4-557e-4f61-b296-6855b2a839a5",
+              "name": "Unauthorized — invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "workorders",
+                    ":work_order_id",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "work_order_id",
+                      "description": "(Required) Unique work order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f44c785c-36c9-4820-a17f-f4aef3c276b0",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "workorders",
+                    ":work_order_id",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "work_order_id",
+                      "description": "(Required) Unique work order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vksapp.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "10d241a3-1e52-4b5f-ba8b-6f09dfccc148",
+    "name": "VKS Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The VKS (Visual Knowledge Share) JSON REST API provides programmatic access to pull guidebook and production information out of VKS and manage Work Orders and operations. It supports bi-directional integration with ERP, MES, QMS, and LMS systems for manufacturing environments. Supports up to 50 requests per minute for SaaS deployments.\n\nContact Support:\n Name: VKS Support",
+      "type": "text/plain"
+    }
+  }
+}

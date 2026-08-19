@@ -1,0 +1,257 @@
+{
+  "item": [
+    {
+      "id": "66ad770c-4825-4967-b674-f131cbc567b0",
+      "name": "Production Data",
+      "description": {
+        "content": "Retrieve production metrics, quality data, and traceability records",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6d757fd7-6929-409f-95d5-b5f35b47084b",
+          "name": "List Production Data",
+          "request": {
+            "name": "List Production Data",
+            "description": {
+              "content": "Retrieve production data records including smart form responses, quality metrics, completion times, worker IDs, and part/assembly traceability information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "production-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "work_order_id",
+                  "value": "<string>",
+                  "description": "Filter by work order ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "guidebook_id",
+                  "value": "<string>",
+                  "description": "Filter by guidebook ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<dateTime>",
+                  "description": "Filter records from this date/time"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<dateTime>",
+                  "description": "Filter records to this date/time"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "15ad7339-16bf-4178-af85-cf3f819b55a5",
+              "name": "Production data records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "production-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "work_order_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guidebook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"work_order_id\": \"string\",\n      \"guidebook_id\": \"string\",\n      \"step_number\": 555,\n      \"worker_id\": \"string\",\n      \"part_number\": \"string\",\n      \"actual_quantity\": 7756,\n      \"smart_form_data\": {\n        \"key_0\": true\n      },\n      \"completion_time_seconds\": 1578,\n      \"recorded_at\": \"2015-09-11T16:49:01.921Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"work_order_id\": \"string\",\n      \"guidebook_id\": \"string\",\n      \"step_number\": 3617,\n      \"worker_id\": \"string\",\n      \"part_number\": \"string\",\n      \"actual_quantity\": 856,\n      \"smart_form_data\": {\n        \"key_0\": 4008.5344444283355,\n        \"key_1\": 2217,\n        \"key_2\": true,\n        \"key_3\": false,\n        \"key_4\": 2588.7985278349965\n      },\n      \"completion_time_seconds\": 357,\n      \"recorded_at\": \"1951-03-06T18:14:53.338Z\"\n    }\n  ],\n  \"total\": 9513\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b94e37e-8f3b-4d81-bf3d-8a9d2135ea47",
+              "name": "Unauthorized — invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "production-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "work_order_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guidebook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vksapp.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "12b34ff3-fb9e-4637-b58c-41289aff36b9",
+    "name": "VKS Production Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The VKS (Visual Knowledge Share) JSON REST API provides programmatic access to pull guidebook and production information out of VKS and manage Work Orders and operations. It supports bi-directional integration with ERP, MES, QMS, and LMS systems for manufacturing environments. Supports up to 50 requests per minute for SaaS deployments.\n\nContact Support:\n Name: VKS Support",
+      "type": "text/plain"
+    }
+  }
+}

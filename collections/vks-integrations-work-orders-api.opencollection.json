@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VKS Work Orders API",
+    "version": "1.23.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Work Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Work Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vksapp.com/api/workorders",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by work order status"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter work orders created on or after this date (ISO 8601)"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter work orders created on or before this date (ISO 8601)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a list of work orders in VKS. Supports filtering by status, date range, and assignment. Returns planned, in-progress, and completed work orders."
+        },
+        {
+          "info": {
+            "name": "Create Work Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vksapp.com/api/workorders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new work order in VKS. Typically called by an ERP or MES system to push manufacturing orders into VKS for floor execution. The work order references a guidebook and may include bill of materials, part numbers, and expected quantities."
+        },
+        {
+          "info": {
+            "name": "Get Work Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vksapp.com/api/workorders/:work_order_id",
+            "params": [
+              {
+                "name": "work_order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique work order identifier"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve full details for a specific work order including status, operations, and production data."
+        },
+        {
+          "info": {
+            "name": "Update Work Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.vksapp.com/api/workorders/:work_order_id",
+            "params": [
+              {
+                "name": "work_order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique work order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a work order's status, assignment, or metadata."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

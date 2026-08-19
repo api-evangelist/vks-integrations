@@ -1,0 +1,115 @@
+openapi: 3.2.0
+info:
+  title: VKS Operations API
+  description: The VKS (Visual Knowledge Share) JSON REST API provides programmatic access to pull guidebook and production information out of VKS and manage Work Orders and operations. It supports bi-directional integration with ERP, MES, QMS, and LMS systems for manufacturing environments. Supports up to 50 requests per minute for SaaS deployments.
+  version: 1.23.0
+  contact:
+    name: VKS Support
+    url: https://help.vksapp.com/
+  license:
+    name: Proprietary
+    url: https://vksapp.com/
+servers:
+- url: https://api.vksapp.com
+  description: VKS SaaS API
+- url: https://{your-vks-instance}
+  description: VKS On-Premises API
+  variables:
+    your-vks-instance:
+      default: vks.example.com
+      description: Your VKS on-premises hostname
+tags:
+- name: Operations
+  description: Manage and track operational steps and production data
+paths:
+  /api/workorders/{work_order_id}/operations:
+    get:
+      operationId: listWorkOrderOperations
+      summary: List Work Order Operations
+      description: Retrieve all operation steps for a work order, including their status and production data.
+      tags:
+      - Operations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: work_order_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique work order identifier
+      responses:
+        '200':
+          description: List of operations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Operation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    Operation:
+      type: object
+      description: An operational step within a work order.
+      properties:
+        id:
+          type: string
+        step_number:
+          type: integer
+          description: Step sequence number.
+        name:
+          type: string
+          description: Operation/step name.
+        status:
+          type: string
+          enum:
+          - pending
+          - in_progress
+          - completed
+          - skipped
+        worker_id:
+          type: string
+          description: Worker who performed this operation.
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+  responses:
+    Unauthorized:
+      description: Unauthorized — invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'VKS API key. Include as ''Authorization: Bearer {api_key}'' or as configured in your VKS instance.'
+externalDocs:
+  description: VKS API Documentation
+  url: https://help.vksapp.com/Content/VKS_Features/API/APIInfo.htm

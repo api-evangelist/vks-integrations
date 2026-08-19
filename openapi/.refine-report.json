@@ -1,0 +1,26 @@
+{
+  "provider": "vks-integrations",
+  "sources": [
+    "vks-integrations-guidebooks-api-openapi.yml",
+    "vks-integrations-operations-api-openapi.yml",
+    "vks-integrations-production-data-api-openapi.yml",
+    "vks-integrations-work-orders-api-openapi.yml"
+  ],
+  "outputs": [
+    "vks-integrations-guidebooks-api-openapi.yml",
+    "vks-integrations-operations-api-openapi.yml",
+    "vks-integrations-production-data-api-openapi.yml",
+    "vks-integrations-work-orders-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "vks-integrations-guidebooks-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "vks-integrations-operations-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "vks-integrations-production-data-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "vks-integrations-work-orders-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

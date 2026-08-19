@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VKS Production Data API",
+    "version": "1.23.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Production Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Production Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vksapp.com/api/production-data",
+            "params": [
+              {
+                "name": "work_order_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by work order ID"
+              },
+              {
+                "name": "guidebook_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by guidebook ID"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter records from this date/time"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter records to this date/time"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve production data records including smart form responses, quality metrics, completion times, worker IDs, and part/assembly traceability information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

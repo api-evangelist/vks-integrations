@@ -1,0 +1,435 @@
+{
+  "item": [
+    {
+      "id": "5618846b-fe12-4a09-bdc4-ef1e5c830085",
+      "name": "Guidebooks",
+      "description": {
+        "content": "Access work instruction guidebooks and step-level content",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85cf8380-fb28-4290-97c9-e4015de36b9e",
+          "name": "List Guidebooks",
+          "request": {
+            "name": "List Guidebooks",
+            "description": {
+              "content": "Retrieve all published work instruction guidebooks available in VKS.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "guidebooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search guidebooks by name or description"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9876a15-8443-4dd9-a718-7eeed02134ca",
+              "name": "List of guidebooks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "guidebooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"Assembly Line A - Widget Assembly v3\",\n      \"description\": \"string\",\n      \"version\": \"string\",\n      \"step_count\": 4133,\n      \"created_at\": \"1952-04-14T11:50:28.782Z\",\n      \"updated_at\": \"1964-04-23T22:53:11.775Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"Assembly Line A - Widget Assembly v3\",\n      \"description\": \"string\",\n      \"version\": \"string\",\n      \"step_count\": 5589,\n      \"created_at\": \"1950-03-11T08:38:45.632Z\",\n      \"updated_at\": \"1969-09-11T21:02:50.940Z\"\n    }\n  ],\n  \"total\": 9129\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63645120-9b10-46f1-9f82-a069b21b18a9",
+              "name": "Unauthorized — invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "guidebooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ad1961d-1431-419f-a2c9-18daa9e552e4",
+          "name": "Get Guidebook",
+          "request": {
+            "name": "Get Guidebook",
+            "description": {
+              "content": "Retrieve a specific guidebook including its steps, smart forms, and media content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "guidebooks",
+                ":guidebook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "guidebook_id",
+                  "description": "(Required) Unique guidebook identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f85f8a7-90cf-49ea-9c64-cb81be511e89",
+              "name": "Guidebook details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "guidebooks",
+                    ":guidebook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guidebook_id",
+                      "description": "(Required) Unique guidebook identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"Assembly Line A - Widget Assembly v3\",\n  \"description\": \"string\",\n  \"version\": \"string\",\n  \"step_count\": 5925,\n  \"created_at\": \"1963-05-27T04:52:55.015Z\",\n  \"updated_at\": \"2011-11-19T05:12:35.673Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c7ebdd5-749e-434c-aa64-77a28a8480c3",
+              "name": "Unauthorized — invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "guidebooks",
+                    ":guidebook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guidebook_id",
+                      "description": "(Required) Unique guidebook identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29c1137d-80ce-495d-98fd-ce56c7ebb179",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "guidebooks",
+                    ":guidebook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guidebook_id",
+                      "description": "(Required) Unique guidebook identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vksapp.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "25fb9e52-2a9c-4bef-9c02-88715f2b4b27",
+    "name": "VKS Guidebooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The VKS (Visual Knowledge Share) JSON REST API provides programmatic access to pull guidebook and production information out of VKS and manage Work Orders and operations. It supports bi-directional integration with ERP, MES, QMS, and LMS systems for manufacturing environments. Supports up to 50 requests per minute for SaaS deployments.\n\nContact Support:\n Name: VKS Support",
+      "type": "text/plain"
+    }
+  }
+}
