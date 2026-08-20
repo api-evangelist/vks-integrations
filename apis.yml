@@ -54,7 +54,8 @@ apis:
   name: VKS Integrations Operations API
   description: Manage and track operational steps and production data
   humanURL: https://vksapp.com/integrations
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
