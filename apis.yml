@@ -32,7 +32,7 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://vksapp.com/hubfs/vks-logo.png
 tags:
