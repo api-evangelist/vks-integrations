@@ -92,14 +92,14 @@ components:
         message:
           type: string
   responses:
-    Unauthorized:
-      description: Unauthorized — invalid or missing API key
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
+    Unauthorized:
+      description: Unauthorized — invalid or missing API key
       content:
         application/json:
           schema:
