@@ -176,6 +176,54 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    CreateWorkOrderRequest:
+      type: object
+      required:
+      - work_order_number
+      - guidebook_id
+      description: Request body to create a new work order.
+      properties:
+        work_order_number:
+          type: string
+          description: External work order number from ERP or MES.
+        guidebook_id:
+          type: string
+          description: VKS guidebook ID containing the work instructions.
+        part_number:
+          type: string
+          description: Part number to be manufactured.
+        expected_quantity:
+          type: integer
+          description: Expected production quantity.
+        assigned_worker:
+          type: string
+          description: Worker assignment.
+        metadata:
+          type: object
+          description: Additional ERP/MES metadata fields.
+          additionalProperties: true
+    UpdateWorkOrderRequest:
+      type: object
+      description: Request body to update a work order.
+      properties:
+        status:
+          type: string
+          enum:
+          - planned
+          - in_progress
+          - completed
+          - on_hold
+        assigned_worker:
+          type: string
+        expected_quantity:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     WorkOrder:
       type: object
       description: A VKS work order representing a manufacturing task assigned to a guidebook.
@@ -228,63 +276,15 @@ components:
         updated_at:
           type: string
           format: date-time
-    UpdateWorkOrderRequest:
-      type: object
-      description: Request body to update a work order.
-      properties:
-        status:
-          type: string
-          enum:
-          - planned
-          - in_progress
-          - completed
-          - on_hold
-        assigned_worker:
-          type: string
-        expected_quantity:
-          type: integer
-    CreateWorkOrderRequest:
-      type: object
-      required:
-      - work_order_number
-      - guidebook_id
-      description: Request body to create a new work order.
-      properties:
-        work_order_number:
-          type: string
-          description: External work order number from ERP or MES.
-        guidebook_id:
-          type: string
-          description: VKS guidebook ID containing the work instructions.
-        part_number:
-          type: string
-          description: Part number to be manufactured.
-        expected_quantity:
-          type: integer
-          description: Expected production quantity.
-        assigned_worker:
-          type: string
-          description: Worker assignment.
-        metadata:
-          type: object
-          description: Additional ERP/MES metadata fields.
-          additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
   responses:
-    Unauthorized:
-      description: Unauthorized — invalid or missing API key
+    BadRequest:
+      description: Bad request — invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid parameters
+    Unauthorized:
+      description: Unauthorized — invalid or missing API key
       content:
         application/json:
           schema:
